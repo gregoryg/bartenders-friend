@@ -1,0 +1,61 @@
+#+TITLE: Bartender's Friend
+#+AUTHOR: Gregory Grubbs + 4o
+#+DATE: [2025-08-02 Sat]
+
+* Introduction
+
+Welcome to Bartender's Friend - a project for cocktail enthusiasts and data lovers!
+
+This project aims to provide comprehensive cocktail data and tools for:
+- Recipe management
+- Ingredient tracking
+- Cocktail recommendations
+
+* Project Structure
+
+- =raw-data/= - Contains various cocktail datasets
+- =LLM-guidance.org= - AI assistant guidelines
+- =LICENSE= - Project licensing information
+
+* Getting Started
+
+To get started with this project:
+
+1. Clone the repository
+2. Explore the raw data files
+3. Check out the documentation
+
+* Data Sources
+
+The project includes several comprehensive cocktail databases:
+- Boston Cocktails collection (classic recipes)
+- Open Drinks database (community-sourced)
+- Stevana cocktail recipes (curated collection)
+- Mr. Boston flattened data
+- All drinks CSV compilation
+
+** Data Format Notes
+
+Most data sources are provided in CSV format for easy processing.
+Some datasets also include SQLite databases for more complex queries.
+
+* Contributing
+
+Contributions are welcome! Please check the guidelines before submitting.
+
+* TODO Tasks
+- [ ] Set up data processing pipeline
+- [ ] Create recipe search functionality
+- [ ] Add unit tests
+- [ ] Documentation improvements
+- [ ] Create web interface
+- [ ] Add ingredient substitution logic
+- [X] Initial README creation
+
+* Installation
+
+#+BEGIN_SRC bash
+git clone <repository-url>
+cd bartenders-friend
+# Additional setup instructions to follow
+#+END_SRC

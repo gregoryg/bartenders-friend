@@ -1,0 +1,31 @@
+* Immediate Focus
+- [ ] Implement PostgreSQL schema (2025-08-03)
+  - Design initial DDL based on refined plan
+  - Assess indexing needs
+  - Explore =bytea= for image storage
+
+- [ ] Preliminary Data ETL for testing
+  - Create Python scripts to normalize and import datasets
+  - Focus on initial ingestion of CSV, JSON, and YAML
+
+- [ ] Initial authentication setup
+  - Implement username/password auth
+  - Introduce JWT generation for session tokens
+
+- [ ] Initial UI prototype
+  - Begin prototyping with Alpine.js
+  - Ensure backend integration via API
+
+* Backlog
+
+- [ ] Explore image upload capabilities
+  - Determine efficient storage and access methods
+  - Outline potential APIs for user-submitted images
+
+- [ ] Mobile experience design consideration
+  - Assess potential frameworks for responsive design
+
+* Unaddressed Questions
+
+1. Hosting constraints on PostgreSQL (local vs cloud)?
+2. Specific metadata needed for source attribution?

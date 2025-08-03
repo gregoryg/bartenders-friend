@@ -1,0 +1,22 @@
+* Project Vision
+This project aims to build an extensive, intuitive cocktail recipe database and community. The backend-first approach focuses on scalability and data integrity.
+
+* Architecture
+- *Backend*: FastAPI with PostgreSQL database
+- *Frontend*: Initial prototype in Alpine.js, potentially expanding the tech stack
+
+* Constraints
+- Images stored locally
+- Authentication: Simple user/pass with extendable JWT tokens
+
+* Schema Design
+Design data structures that emphasize normalization and flexibility, ensuring robustness for future iterations.
+
+* Tools & Languages
+- PostgreSQL for data persistence
+- FastAPI with Python for backend
+- Alpine.js for lightweight frontend prototyping
+
+* Backlog & Future Plans
+- Enhance authentication with OAuth
+- Interface improvements and CDN considerations for image assets
