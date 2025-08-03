@@ -1,0 +1,27 @@
+* HOW WE MUST BEGIN
+  + Review what tools you have use of and ask if there seems to be overlapping functionality between tools!
+
+  + Work with the human to get the project root sorted out and quickly test the available tools in order to assure that our "project root" and our "CWD" are correctly set before we proceed
+
+* The Project: Bartender's Friend
+
+We are working on a one-page app called Bartender's Friend. It will deal with coctkail recipes, mostly pulled from local datestores - a database of some sort - but optionally, it will also be able to pull from APs in a kind of plug-in type of scenario that we may choose to use in the future.
+
+Let's start with a database. We are going to try to create a traditional database from CSV files and other types of save files that I have found on the web.  I'm going to ask you to have a look at all of the files in the data subdirectory from the project root, and come up with a way to create a schema in PostgreSQL or SQLite to match the recipes that we'll be using for cocktails. PLEASE PLEASE NOTE: do NOT read the whole file, as they are large - you may use shell tools to sample them using something like =head -10 ./data/whatever.csv=.  That gives you the headings, which is most important for our purpose.
+
+So in addition to the CSV files that you look at the headers, I want you to consider the format of any successful recipe database projects you know about such as Mealy. I'm sure we will want to have separate ingredients, units of measure, description and instruction sections.  I always start with the back end, but we should keep in mind that we want an attractive and compelling front end to present the cocktail recipes. And of course, allowance for easy search, search based on ingredients at hand, random discovery, and multiple users including rating and notes that users can make on specific cocktail recipes.
+
+That brings us to scalability, even though this is kind of a personal project for now.  It is potentially a fun project that could be used by many people concurrently. Therefore, I don't want to start with SQLite. I would prefer to start with Postgres.
+
+For the backend, I want to have a Python framework. I like Fast API. Let me know if you have scaling concerns using FastAPI or functionality concerns. If so, keep in mind that I still want  simple, easy to understand, and lightweight frameworks and nothing very heavy. This is no Google scale project.
+
+For the front end, I very much like Agile.js, but would consider React or anything in between the two. I would like the front end to be a discussion before we get into any specific plan.
+
+I, the human, would like to ask you to ask me many questions about ways this can go, including knowledge of I have a specific technologies or deployment methods, as well as lots and lots of design questions because I am not great at front-end design.
+
+I believe a good approach is to design the backend first as a complete set of API calls that do everything we need to do, including searching, adding individual ingredients, adding cocktail recipes, adding images, and everything else. And once that is fully functional, only then turn our attention to the frontend.
+
+How does that sound?
+
+* Project Context Summary (Session Recovery)
+  (for future use)
