@@ -2,21 +2,71 @@
 This project aims to build an extensive, intuitive cocktail recipe database and community. The backend-first approach focuses on scalability and data integrity.
 
 * Architecture
-- *Backend*: FastAPI with PostgreSQL database
-- *Frontend*: Initial prototype in Alpine.js, potentially expanding the tech stack
 
-* Constraints
-- Images stored locally
-- Authentication: Simple user/pass with extendable JWT tokens
+** Current Tech Stack (Proven)
+- *Database*: PostgreSQL (bartenders_friend database)
+- *ETL Pipeline*: Python with pandas, SQLAlchemy, psycopg2
+- *Backend*: FastAPI with Python (planned)
+- *Frontend*: Alpine.js for lightweight prototyping (planned)
+- *Development*: Python virtual environment with requirements.txt
 
-* Schema Design
-Design data structures that emphasize normalization and flexibility, ensuring robustness for future iterations.
+** Database Schema Evolution
+1. *Stage 1*: Relaxed schema without foreign key constraints ✅
+   - Allows flexible data loading from diverse sources
+   - Enables data quality analysis before normalization
+2. *Stage 2*: Data cleanup and normalization (in progress)
+   - Deduplicate ingredients and cocktails
+   - Standardize units and measurements
+3. *Stage 3*: Add foreign key constraints and relationships
+   - Enforce referential integrity
+   - Enable complex queries and joins
+
+** Proven ETL Strategy
+- *Multi-source ingestion*: CSV, JSON, YAML handling
+- *Flexible schema*: Accommodates varied data structures
+- *Cross-reference tables*: cocktail_ingredients for many-to-many relationships
+- *Source attribution*: Maintains data provenance
+
+* Current Data Assets (2025-08-03)
+- *1,535 cocktails* from multiple curated sources
+- *904 unique ingredients* with relationship mapping
+- *3,972 cocktail-ingredient relationships* loaded
+- *13 normalized glass types*
+- *Instructions preserved* for 545 cocktails
+
+* Constraints & Decisions
+- *Local development*: PostgreSQL hosted locally
+- *Images stored locally*: Simple file system approach
+- *Authentication*: Start with simple user/pass, extend to JWT
+- *No premature optimization*: Focus on data quality first
+
+* Schema Design Principles
+- *Normalization with flexibility*: Proper relationships without rigidity
+- *Source attribution*: Track data origins for quality
+- *User extensibility*: Support user-submitted content
+- *Search optimization*: Design for ingredient and name searches
 
 * Tools & Languages
-- PostgreSQL for data persistence
-- FastAPI with Python for backend
-- Alpine.js for lightweight frontend prototyping
+- *PostgreSQL* for data persistence
+- *Python ecosystem*: pandas (ETL), SQLAlchemy (ORM), psycopg2 (driver)
+- *FastAPI* with Python for backend APIs
+- *Alpine.js* for lightweight frontend prototyping
 
-* Backlog & Future Plans
-- Enhance authentication with OAuth
-- Interface improvements and CDN considerations for image assets
+* Data Sources Successfully Integrated
+- =boston_cocktails.csv=: Normalized ingredient format
+- =all_drinks.csv=: Denormalized with instructions
+- Glass types extracted and normalized
+- Cross-reference relationships established
+
+* Next Phase: API Development
+- CRUD operations for cocktails and ingredients
+- Search endpoints (by name, ingredient, glass type)
+- User authentication and session management
+- Rating and review system
+
+* Future Enhancements
+- OAuth integration for social authentication
+- Image upload and processing pipeline
+- Full-text search with PostgreSQL
+- Ingredient substitution recommendations
+- Mobile-responsive design
