@@ -1,72 +1,138 @@
-* Project Vision
-This project aims to build an extensive, intuitive cocktail recipe database and community. The backend-first approach focuses on scalability and data integrity.
+#+TITLE: Bartender's Friend - Project Planning & Architecture
+#+DATE: 2025-08-03
+#+STARTUP: overview
+#+AUTHOR: Greg & Claude
 
-* Architecture
+* Project Vision
+** Core Mission
+Build a comprehensive cocktail database and discovery platform that:
+- Aggregates recipes from multiple high-quality sources
+- Provides intelligent search across ingredients, names, and categories  
+- Enables users to rate, annotate, and contribute recipes
+- Offers ingredient substitution suggestions
+- Supports both casual browsing and serious cocktail craft
+
+** Success Metrics
+- 2000+ high-quality cocktail recipes from diverse sources
+- Sub-second search response times
+- User-friendly API for potential mobile apps
+- Clean, maintainable codebase suitable for continuous enhancement
+
+* Technical Architecture
 
 ** Current Tech Stack (Proven)
 - *Database*: PostgreSQL (bartenders_friend database)
 - *ETL Pipeline*: Python with pandas, SQLAlchemy, psycopg2
 - *Backend*: FastAPI with Python (planned)
+- *Authentication*: JWT with simple user/pass initially
 - *Frontend*: Alpine.js for lightweight prototyping (planned)
-- *Development*: Python virtual environment with requirements.txt
+
+** Data Strategy - Multi-Source Aggregation
+*** Data Sources [3/5 Complete]
+1. ✅ *boston_cocktails.csv* - 989 cocktails (normalized format)
+2. ✅ *all_drinks.csv* - 546 cocktails (denormalized with instructions)
+3. 🚧 *the-cocktail-db.csv* - 635 cocktails (with image URLs)
+4. 📋 *stevana-cocktails/*.yml* - 158 boutique cocktails (timing & taste data)
+5. 📋 *opendrinks/*.json* - 647 premium cocktails (descriptions & images)
+
+*** Target: ~3000 Total Cocktails
 
 ** Database Schema Evolution
-1. *Stage 1*: Relaxed schema without foreign key constraints ✅
-   - Allows flexible data loading from diverse sources
-   - Enables data quality analysis before normalization
-2. *Stage 2*: Data cleanup and normalization (in progress)
-   - Deduplicate ingredients and cocktails
-   - Standardize units and measurements
-3. *Stage 3*: Add foreign key constraints and relationships
-   - Enforce referential integrity
-   - Enable complex queries and joins
+*** Stage 1: Relaxed Loading ✅
+- No foreign key constraints
+- Text-based references
+- Focus on data ingestion speed
+- ✅ 1,535 cocktails loaded successfully
 
-** Proven ETL Strategy
-- *Multi-source ingestion*: CSV, JSON, YAML handling
-- *Flexible schema*: Accommodates varied data structures
-- *Cross-reference tables*: cocktail_ingredients for many-to-many relationships
-- *Source attribution*: Maintains data provenance
+*** Stage 2: Quality & Expansion 🚧
+- Load remaining data sources  
+- Deduplication and normalization
+- Unit standardization
+- Quality analysis
 
-* Current Data Assets (2025-08-03)
-- *1,535 cocktails* from multiple curated sources
-- *904 unique ingredients* with relationship mapping
-- *3,972 cocktail-ingredient relationships* loaded
-- *13 normalized glass types*
-- *Instructions preserved* for 545 cocktails
+*** Stage 3: Production Schema 📋
+- Add foreign key constraints
+- Performance optimization
+- Full referential integrity
+- Production-ready structure
+
+* Development Workflow
+
+** ETL Process (Proven Approach)
+1. *Sample data sources* with head/tail commands
+2. *Design transformation logic* for each format
+3. *Load into relaxed schema* without constraints
+4. *Analyze and clean data* in-database
+5. *Enforce relationships* when data is clean
+
+** File Management Standards
+- Keep only current script versions
+- Clear naming conventions (stage1_enhanced vs stage1)
+- Document execution sequence in README
+- Version control all schema iterations
+
+** Git Strategy
+- Granular commits by functional area
+- Conventional commit format (feat/fix/docs)
+- Database, ETL, and docs as separate commits
+- Clear commit messages with quantified progress
+
+* API Development Plan
+
+** Phase 1: Core CRUD 📋
+- Cocktail search and retrieval
+- Ingredient-based search
+- Basic user management
+- JWT authentication
+
+** Phase 2: Enhanced Features 📋  
+- Rating and review system
+- Personal cocktail collections
+- Ingredient substitution suggestions
+- Image handling optimization
+
+** Phase 3: Community Features 📋
+- User-contributed recipes
+- Social features (follows, shares)
+- Advanced search with ML suggestions
+- Mobile API optimization
+
+* Data Quality Standards
+
+** Ingredient Management
+- Standardized naming (e.g., "Light Rum" vs "White Rum")
+- Category classification for substitutions
+- Unit normalization (oz, ml, dashes)
+- Alternative name handling
+
+** Recipe Quality
+- Required fields: name, instructions, ingredients
+- Optional enrichment: images, timing, complexity
+- Source attribution for all recipes
+- Duplicate detection and merging strategy
+
+** Search Optimization  
+- Full-text search on names and instructions
+- Ingredient-based filtering
+- Category and glass-type faceting
+- Performance indexes on common queries
 
 * Constraints & Decisions
-- *Local development*: PostgreSQL hosted locally
-- *Images stored locally*: Simple file system approach
-- *Authentication*: Start with simple user/pass, extend to JWT
-- *No premature optimization*: Focus on data quality first
 
-* Schema Design Principles
-- *Normalization with flexibility*: Proper relationships without rigidity
-- *Source attribution*: Track data origins for quality
-- *User extensibility*: Support user-submitted content
-- *Search optimization*: Design for ingredient and name searches
+** Technology Choices
+- *PostgreSQL*: Chosen for full-text search and JSON support
+- *Alpine.js*: Lightweight, Vue-like syntax, minimal complexity
+- *Local Development*: Cloud deployment deferred until proven locally
+- *Image Storage*: Local storage initially, cloud migration option preserved
 
-* Tools & Languages
-- *PostgreSQL* for data persistence
-- *Python ecosystem*: pandas (ETL), SQLAlchemy (ORM), psycopg2 (driver)
-- *FastAPI* with Python for backend APIs
-- *Alpine.js* for lightweight frontend prototyping
+** Development Principles
+- Backend-first development approach
+- Data quality over speed of feature delivery  
+- Simple solutions over complex architectures
+- Documentation-driven development
 
-* Data Sources Successfully Integrated
-- =boston_cocktails.csv=: Normalized ingredient format
-- =all_drinks.csv=: Denormalized with instructions
-- Glass types extracted and normalized
-- Cross-reference relationships established
-
-* Next Phase: API Development
-- CRUD operations for cocktails and ingredients
-- Search endpoints (by name, ingredient, glass type)
-- User authentication and session management
-- Rating and review system
-
-* Future Enhancements
-- OAuth integration for social authentication
-- Image upload and processing pipeline
-- Full-text search with PostgreSQL
-- Ingredient substitution recommendations
-- Mobile-responsive design
+** Future Considerations
+- OAuth integration pathway planned
+- Mobile app API compatibility
+- Multi-language recipe support potential
+- Advanced ML features (recommendation engine)

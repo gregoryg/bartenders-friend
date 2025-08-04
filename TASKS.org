@@ -1,17 +1,34 @@
-* Completed Tasks
-- [X] PostgreSQL database setup - bartenders_friend database created (2025-08-03)
-- [X] Stage 1 relaxed schema implementation - no FK constraints for initial ETL (2025-08-03)
-- [X] Initial ETL pipeline - loaded 1,535 cocktails, 904 ingredients (2025-08-03)
-- [X] Cross-reference table creation - cocktail_ingredients with 3,972 relationships (2025-08-03)
-- [X] Glass types population - extracted and normalized from cocktail data (2025-08-03)
-- [X] Python virtual environment setup with pandas, sqlalchemy, psycopg2 (2025-08-03)
+#+TITLE: Bartender's Friend - Task Management
+#+DATE: 2025-08-03
+#+STARTUP: overview
 
-* Immediate Focus - Stage 2 ETL
-- [ ] Run enhanced ETL for all_drinks ingredient relationships (2025-08-03)
-- [ ] Data quality analysis - identify duplicates and inconsistencies (2025-08-03)
-- [ ] Ingredient deduplication and normalization (2025-08-03)
-- [ ] Unit standardization (oz, ml, dashes, etc.) (2025-08-03)
-- [ ] Create Stage 2 schema with proper foreign key constraints (2025-08-03)
+* Current Sprint - Stage 2: Data Expansion & Quality
+** Data Source Loading [3/5]
+- [X] boston_cocktails.csv (989 cocktails)
+- [X] all_drinks.csv (546 cocktails) 
+- [ ] the-cocktail-db.csv (635 cocktails) - *IN PROGRESS*
+- [ ] stevana-cocktails/*.yml (158 files) - Rich YAML with timing/taste
+- [ ] opendrinks/*.json (647 files) - Premium dataset with images
+
+** Data Quality Tasks
+- [ ] Enhanced ETL script testing (2025-08-03) [HIGH]
+- [ ] Duplicate detection and merging [MED]
+- [ ] Unit standardization (oz, ml, dashes, etc.) [MED] 
+- [ ] Ingredient categorization and alternatives [LOW]
+
+** Database Optimization
+- [ ] Create indexes for common queries [MED]
+- [ ] Add foreign key constraints (Stage 3) [LOW]
+- [ ] Performance analysis with full dataset [LOW]
+
+* Completed ✅
+- [X] PostgreSQL database setup - bartenders_friend created (2025-08-03)
+- [X] Relaxed schema implementation - no FK constraints for ETL (2025-08-03)
+- [X] Initial ETL pipeline - 1,535 cocktails, 904 ingredients loaded (2025-08-03)
+- [X] Cross-reference table - cocktail_ingredients (3,972 relationships) (2025-08-03)
+- [X] Glass types population - normalized from source data (2025-08-03)
+- [X] Python environment - pandas, sqlalchemy, psycopg2 (2025-08-03)
+- [X] Script cleanup - removed superseded etl_stage1.py (2025-08-03)
 
 * Authentication & API Development
 - [ ] Initial authentication setup
