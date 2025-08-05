@@ -46,6 +46,21 @@ CREATE TABLE measurements (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Cross-reference table between cocktails and ingredients (Stage 1, relaxed)
+-- Reason: Stage 1 prioritizes ingestion; normalization and constraints added later.
+CREATE TABLE IF NOT EXISTS cocktail_ingredients (
+    id SERIAL PRIMARY KEY,
+    cocktail_name VARCHAR(255),
+    ingredient_name VARCHAR(255),
+    quantity VARCHAR(100),
+    unit VARCHAR(50),
+    ingredient_order INTEGER,
+    optional BOOLEAN DEFAULT FALSE,
+    notes TEXT,
+    source_dataset VARCHAR(100),
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Glass types as simple lookup
 CREATE TABLE glass_type (
     id SERIAL PRIMARY KEY,
