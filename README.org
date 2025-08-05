@@ -41,12 +41,10 @@ createdb bartenders_friend  # Or use your preferred method
 psql -h localhost -d bartenders_friend -f create-db-stage1.sql
 
 # Load initial data
-python etl_stage1_enhanced.py  # Loads CSV data sources
+python etl_stage1.py  # Loads CSV data sources
 
 # Verify data loaded successfully
 psql -h localhost -d bartenders_friend -c "SELECT COUNT(*) FROM cocktails;"
-
-# Note: etl_stage1.py has been deprecated and moved to .bak
 #+END_SRC
 
 * Project Structure
