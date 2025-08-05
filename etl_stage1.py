@@ -55,37 +55,38 @@ def show_summary(engine):
     """Show summary of loaded data"""
     print("\n=== Data Summary ===")
 
-    # Cocktails summary
-    result = engine.execute(text("""
-        SELECT
-            COUNT(*) as total_cocktails,
-            COUNT(instructions) as with_instructions,
-            COUNT(*) - COUNT(instructions) as without_instructions
-        FROM cocktails
-    """))
-    cocktails_stats = result.fetchone()
-    print(f"Cocktails: {cocktails_stats[0]} total ({cocktails_stats[1]} with instructions, {cocktails_stats[2]} without)")
+    with engine.connect() as conn:
+        # Cocktails summary
+        result = conn.execute(text("""
+            SELECT
+                COUNT(*) as total_cocktails,
+                COUNT(instructions) as with_instructions,
+                COUNT(*) - COUNT(instructions) as without_instructions
+            FROM cocktails
+        """))
+        cocktails_stats = result.fetchone()
+        print(f"Cocktails: {cocktails_stats[0]} total ({cocktails_stats[1]} with instructions, {cocktails_stats[2]} without)")
 
-    # Ingredients summary
-    result = engine.execute(text("SELECT COUNT(*) FROM ingredients"))
-    ingredients_count = result.fetchone()[0]
-    print(f"Unique ingredients: {ingredients_count}")
+        # Ingredients summary
+        result = conn.execute(text("SELECT COUNT(*) FROM ingredients"))
+        ingredients_count = result.fetchone()[0]
+        print(f"Unique ingredients: {ingredients_count}")
 
-    # Cross-reference summary
-    result = engine.execute(text("""
-        SELECT
-            source_dataset,
-            COUNT(*) as relationships,
-            COUNT(DISTINCT cocktail_name) as cocktails,
-            COUNT(DISTINCT ingredient_name) as ingredients
-        FROM cocktail_ingredients
-        GROUP BY source_dataset
-        ORDER BY source_dataset
-    """))
+        # Cross-reference summary
+        result = conn.execute(text("""
+            SELECT
+                source_dataset,
+                COUNT(*) as relationships,
+                COUNT(DISTINCT cocktail_name) as cocktails,
+                COUNT(DISTINCT ingredient_name) as ingredients
+            FROM cocktail_ingredients
+            GROUP BY source_dataset
+            ORDER BY source_dataset
+        """))
 
-    print("\nIngredient relationships by source:")
-    for row in result:
-        print(f"  {row[0]}: {row[1]} relationships ({row[2]} cocktails, {row[3]} ingredients)")
+        print("\nIngredient relationships by source:")
+        for row in result:
+            print(f"  {row[0]}: {row[1]} relationships ({row[2]} cocktails, {row[3]} ingredients)")
 
 def main():
     print("=== Enhanced Stage 1 ETL: Cross-Reference Loading ===")
