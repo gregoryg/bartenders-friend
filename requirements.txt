@@ -3,3 +3,4 @@ sqlalchemy
 pydantic
 # Note: on Debian/Ubuntu, first apt install libpq-dev
 psycopg2
+pyaml
