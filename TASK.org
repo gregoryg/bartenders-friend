@@ -1,0 +1,13 @@
+* Active tasks [2/5]
+- [X] Run full migration with unique(name, source) policy
+- [X] Validate counts and spot-check random cocktails for proper order
+- [ ] Decide whether to keep per-ingredient source_dataset (currently populated)
+- [ ] Add DB views for convenient querying (v_cocktail_full)
+- [ ] Document ingestion usage in README.org
+
+* Backlog [/]
+- [ ] Add overwrite/refresh flag to replace an existing source’s cocktail by name
+- [ ] Consider altering cocktail_ingredient PK to allow duplicate ingredient per cocktail at different steps
+- [ ] Build FastAPI read-only endpoints
+- [ ] Add search-by-ingredients feature
+- [ ] Optional standard unit normalization layer

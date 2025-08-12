@@ -1,0 +1,43 @@
+* Bartender's Friend
+A backend-first cocktail recipe project using PostgreSQL, with idempotent ingestion from multiple source datasets.
+
+* Installation
+- Requirements: PostgreSQL 14+, Python 3.10+
+- Python deps: see requirements.txt (psycopg2, sqlalchemy optional later)
+- Ensure your database is running and accessible.
+
+* Database
+- Tables: glass_type, ingredient, cocktail, cocktail_ingredient, ratings, users, etc.
+- Uniqueness: cocktail uses UNIQUE(name, source) to preserve multiple recipes by name per source.
+
+* Ingestion
+- Script: scripts/migration/migrate_sources.py
+- Usage:
+#+begin_src bash
+python3 scripts/migration/migrate_sources.py --source both [--limit N] [--dry-run]
+#+end_src
+- Environment vars (optional): BF_DB_NAME, BF_DB_USER, BF_DB_PASSWORD, BF_DB_HOST, BF_DB_PORT
+- Behavior:
+  - Imports from staging tables: the_cocktail_db, boston_cocktails
+  - Idempotent via ON CONFLICT
+  - Preserves ingredient order and free-form measurements
+  - Lazily inserts glass types (title-cased)
+
+* Verification
+- After running, check counts and sample a cocktail with ingredients in order:
+#+begin_src sql
+SELECT COUNT(*) AS cocktails FROM cocktail;
+SELECT COUNT(*) AS cocktail_ingredients FROM cocktail_ingredient;
+WITH pick AS (
+  SELECT id, name FROM cocktail ORDER BY random() LIMIT 1
+)
+SELECT p.name, i.name AS ingredient, ci.ingredient_order, ci.quantity
+FROM pick p
+JOIN cocktail_ingredient ci ON ci.cocktail_id = p.id
+JOIN ingredient i ON i.id = ci.ingredient_id
+ORDER BY ci.ingredient_order NULLS LAST, i.name;
+#+end_src
+
+* Notes
+- Measurements are free-form; consider later normalization if needed.
+- If you need a full reset, see TASK.org for optional TRUNCATE statements.

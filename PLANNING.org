@@ -1,0 +1,47 @@
+* Project vision
+Bartender's Friend is a one-page app for exploring, searching, and managing cocktail recipes from multiple sources (local CSV/JSON/YAML, future APIs). Backend-first approach with a clean, normalized Postgres schema and idempotent ingestion utilities.
+
+* Architecture overview
+- Storage: PostgreSQL (normalized tables: cocktail, ingredient, cocktail_ingredient, glass_type, etc.)
+- Ingestion: Python scripts (psycopg2) for source-to-schema migration; idempotent, re-runnable
+- API: FastAPI (planned), SQLAlchemy/SQLModel for ORM (planned)
+- Frontend: TBD (Alpine.js vs React discussion later)
+
+* Data model principles
+- cocktail uniqueness: name + source (multiple recipes for same name are allowed per source)
+- ingredient names: minimal normalization (opinionated brand names allowed)
+- measurements: free-form in cocktail_ingredient.quantity; preserve recipe language
+- ingredient order: explicit cocktail_ingredient.ingredient_order
+- glass types: lookup table (title-cased); lazily created during ingestion
+
+* Ingestion pipeline
+- Sources supported now:
+  - the_cocktail_db (staging table: the_cocktail_db)
+  - boston_cocktails (staging table: boston_cocktails)
+- Strategy:
+  - Read distinct cocktails per source
+  - Upsert cocktail by (name, source)
+  - Upsert ingredients by name, preserving order and quantities
+  - Idempotent via ON CONFLICT clauses
+
+* Idempotency
+- cocktail: UNIQUE(name, source)
+- ingredient: UNIQUE(name)
+- cocktail_ingredient: PRIMARY KEY (cocktail_id, ingredient_id) with ON CONFLICT DO UPDATE
+- Dry-run support with transaction rollback
+
+* Open design considerations
+- Repeated ingredient in different steps: acceptable to link once; nuanced steps go into instructions. If needed later, switch cocktail_ingredient to have a surrogate id and unique(cocktail_id, ingredient_id, ingredient_order)
+- Unit normalization: keep free-form for now; optionally add a standardized quantity/unit layer later
+- API shape and filtering (by ingredient-on-hand, taste profile, etc.) TBD
+
+* Tech stack & conventions
+- Python 3.10+
+- psycopg2 for DB; pydantic for input validation (API phase)
+- PEP8 + black formatting
+- Org mode docs: PLANNING.org (this), TASK.org, README.org
+
+* Next milestones
+- Solidify ingestion script and validate counts
+- Create API skeleton (FastAPI) exposing read endpoints for cocktails
+- Add simple DB views (e.g., v_cocktail_full)
