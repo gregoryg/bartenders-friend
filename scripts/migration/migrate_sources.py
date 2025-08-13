@@ -2,14 +2,16 @@
 """
 Bartender's Friend - Source data migration
 
-Purpose:
-  - Import cocktails and ingredients from staging tables into normalized schema.
-  - Preserve per-source recipes by making (cocktail.name, cocktail.source) unique.
-  - Idempotent: safe to run repeatedly.
+Goals:
+- Import cocktails and ingredients from staging tables into normalized schema.
+- Preserve ingredient order and free-form quantities.
+- Be idempotent (safe to re-run). Uses ON CONFLICT upserts where appropriate.
+- Preserve source attribution at the recipe level (cocktail.source).
+  Optionally populate cocktail_ingredient.source_dataset for audit; can be disabled.
 
-Sources supported:
-  - the_cocktail_db (columns: drink, glass, category, ingredient_order, ingredient, measure, ...)
-  - boston_cocktails (columns: name, category, ingredient_number, ingredient, measure)
+Datasets handled:
+- the_cocktail_db (columns: drink, category, glass, iba, ingredient_order, ingredient, measure, ...)
+- boston_cocktails (columns: name, category, ingredient_number, ingredient, measure)
 
 Usage:
   python3 scripts/migration/migrate_sources.py --source both [--limit N] [--dry-run]
